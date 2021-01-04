@@ -6,6 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import io.arunbuilds.doit.data.PreferencesManager
 import io.arunbuilds.doit.data.SortOrder
+import io.arunbuilds.doit.data.Task
 import io.arunbuilds.doit.data.TaskDao
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -35,6 +36,14 @@ class TasksViewModel @ViewModelInject constructor(
 
     fun onHideCompletedClicked(hideCompleted: Boolean) = viewModelScope.launch {
         preferencesManager.updateHideCompleted(hideCompleted)
+    }
+
+    fun onTaskSelected(task: Task) {
+        // TODO open edit fragment
+    }
+
+    fun onTaskCheckedChanged(task: Task, checked: Boolean) = viewModelScope.launch {
+        taskDao.update(task.copy(completed = checked))
     }
 
 }
