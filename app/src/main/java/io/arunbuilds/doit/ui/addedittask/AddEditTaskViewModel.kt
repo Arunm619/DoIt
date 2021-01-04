@@ -24,6 +24,11 @@ class AddEditTaskViewModel @ViewModelInject constructor(
             return
         }
 
+        if (taskName.length < 4) {
+            showInvalidInputMessage("Name length should be atleast 5 characters")
+            return
+        }
+
         if (task != null) {
             val updatedTask = task.copy(name = taskName, important = taskImportance)
             updateTask(updatedTask)
