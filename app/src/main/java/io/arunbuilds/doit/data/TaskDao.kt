@@ -1,7 +1,6 @@
 package io.arunbuilds.doit.data
 
 import androidx.room.*
-import io.arunbuilds.doit.ui.tasks.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 @Dao
