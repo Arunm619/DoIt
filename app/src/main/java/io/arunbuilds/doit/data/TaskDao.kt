@@ -12,7 +12,11 @@ import kotlinx.coroutines.flow.Flow
 interface TaskDao {
 
     @Query("SELECT * FROM task_table ")
-    fun getTasks(): Flow<List<Task>>
+    fun getAllTasks(): Flow<List<Task>>
+
+    // Query "Run" ->  "Arun" will be returned
+    @Query("SELECT * FROM task_table WHERE name LIKE '%' || :searchQuery || '%'  ORDER BY important DESC")
+    fun getTasks(searchQuery : String): Flow<List<Task>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(task: Task)

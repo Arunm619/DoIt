@@ -4,4 +4,10 @@
     <string name="save_task">Save Task</string>
     <string name="task_name">Task Name</string>
     <string name="important_task">Important Task</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_name">Sort By Name</string>
+    <string name="sort_by_date_created">Sort by Date Created</string>
+    <string name="hide_completed">Hide Completed</string>
+    <string name="delete_all_completed">Delete All Completed</string>
 </resources>
