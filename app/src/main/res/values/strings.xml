@@ -12,4 +12,5 @@
     <string name="delete_all_completed">Delete All Completed</string>
     <string name="Undo">Undo</string>
     <string name="TaskDeleted">Task Deleted</string>
+    <string name="created">Created:</string>
 </resources>
