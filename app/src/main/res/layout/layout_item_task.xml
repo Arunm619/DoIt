@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp8">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkbox_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:minWidth="@dimen/dp0"
+
+        android:minHeight="@dimen/dp0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/checkbox_complete"
+        android:layout_alignBottom="@id/checkbox_complete"
+        android:layout_toEndOf="@id/checkbox_complete"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:layout_toStartOf="@id/image_view_label_priority"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        tools:text="Example Item " />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_view_label_priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_priority_high" />
+</RelativeLayout>
