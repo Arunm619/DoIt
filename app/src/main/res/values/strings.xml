@@ -13,4 +13,6 @@
     <string name="Undo">Undo</string>
     <string name="TaskDeleted">Task Deleted</string>
     <string name="created">Created:</string>
+    <string name="add_edit_request">add_edit_request</string>
+    <string name="add_edit_result">add_edit_result</string>
 </resources>

@@ -27,3 +27,6 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
+
+const val ADD_TASK_RESULT_OK = 619
+const val EDIT_TASK_RESULT_OK = 619 + 1

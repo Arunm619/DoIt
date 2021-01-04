@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -80,8 +81,16 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                         val action = TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(event.task, "Edit Task")
                         findNavController().navigate(action)
                     }
+                    is TasksViewModel.TasksEvent.ShowTaskSavedConfirmationMessage -> {
+                        Snackbar.make(requireView(), event.message, Snackbar.LENGTH_LONG).show()
+                    }
                 }.exhaustive
             }
+        }
+        setFragmentResultListener(getString(R.string.add_edit_request)) { _, bundle ->
+            val result = bundle.getInt(getString(R.string.add_edit_result))
+            viewModel.onAddEditResult(result)
+
         }
         viewModel.tasks.observe(viewLifecycleOwner,
             Observer<List<Task>> { tasks -> taskAdapter.submitList(tasks) })
@@ -92,7 +101,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
     }
 
     override fun onCheckBoxClick(task: Task, isChecked: Boolean) {
-        viewModel.onTaskCheckedChanged(task,isChecked)
+        viewModel.onTaskCheckedChanged(task, isChecked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -105,8 +114,9 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
             viewModel.searchQuery.value = it
         }
 
-        viewLifecycleOwner.lifecycleScope.launch{
-            menu.findItem(R.id.action_hide_completed_tasks).isChecked = viewModel.preferencesFlow.first().hideCompleted
+        viewLifecycleOwner.lifecycleScope.launch {
+            menu.findItem(R.id.action_hide_completed_tasks).isChecked =
+                viewModel.preferencesFlow.first().hideCompleted
         }
     }
 
