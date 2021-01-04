@@ -1,22 +1,34 @@
 package io.arunbuilds.doit.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
-import androidx.room.Delete
+import androidx.room.*
+import io.arunbuilds.doit.ui.tasks.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
 
     @Query("SELECT * FROM task_table ")
-    fun getAllTasks(): Flow<List<Task>>
+    fun getTasks(
+        searchQuery: String, sortOrder: SortOrder,
+        hideCompleted: Boolean
+    ): Flow<List<Task>> {
+        return when (sortOrder) {
+            SortOrder.BY_DATE -> getTasksSortedByDateCreated(searchQuery, hideCompleted)
+            SortOrder.BY_NAME -> getTasksSortedByName(searchQuery, hideCompleted)
+        }
+    }
 
-    // Query "Run" ->  "Arun" will be returned
-    @Query("SELECT * FROM task_table WHERE name LIKE '%' || :searchQuery || '%'  ORDER BY important DESC")
-    fun getTasks(searchQuery : String): Flow<List<Task>>
+    @Query("SELECT * FROM task_table WHERE (completed != :hideCompleted OR completed = 0)  AND name LIKE '%' || :searchQuery || '%'  ORDER BY important DESC, name")
+    fun getTasksSortedByName(
+        searchQuery: String,
+        hideCompleted: Boolean
+    ): Flow<List<Task>>
+
+    @Query("SELECT * FROM task_table WHERE (completed != :hideCompleted OR completed = 0)  AND name LIKE '%' || :searchQuery || '%'  ORDER BY important DESC, created")
+    fun getTasksSortedByDateCreated(
+        searchQuery: String,
+        hideCompleted: Boolean
+    ): Flow<List<Task>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(task: Task)
